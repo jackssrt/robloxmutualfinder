@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Dict, Generic, Optional, TypeVar
+from typing import Dict, Generic, Optional, TypeVar, Union
 
 
 K = TypeVar("K")
@@ -15,11 +15,11 @@ class DoubleEndedDict(Generic[K, V]):
     key_to_value: Dict[K, V] = field(default_factory=dict)
     value_to_key: Dict[V, K] = field(default_factory=dict)
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key: K, value: V):
         self.key_to_value[key] = value
         self.value_to_key[value] = key
 
-    def __contains__(self, item):
+    def __contains__(self, item: Union[K, V]):
         return item in self.key_to_value or item in self.value_to_key
 
     def replace_internal_dicts(

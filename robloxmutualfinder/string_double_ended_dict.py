@@ -11,7 +11,7 @@ class StringDoubleEndedDict(Generic[K], DoubleEndedDict[K, str]):
     Modified version of DoubleEndedDict to have case insensitive string values.
     """
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key: K, value: str):
         self.key_to_value[key] = value
         self.value_to_key[value.lower()] = key
 

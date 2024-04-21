@@ -39,7 +39,7 @@ cache_path = Path("username_cache.json")
 user_id_to_username_cache: StringDoubleEndedDict[str] = StringDoubleEndedDict()
 try:
     if cache_path.exists():
-        with cache_path.open() as f:
+        with cache_path.open("r") as f:
             file_contents = json.load(f)
             user_id_to_username_cache.replace_internal_dicts(
                 file_contents, {v: k for k, v in file_contents.items()}
