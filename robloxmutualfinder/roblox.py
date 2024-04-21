@@ -103,7 +103,7 @@ def get_user_ids_from_names(names: List[str]):
             json={"usernames": names_to_request, "excludeBannedUsers": False},
         ).json()
         assert req["data"]
-    except Exception as e:
+    except Exception:
         handle_error(
             f"Error fetching {pluralize('userID', names_to_request)} of {natural_list(names_to_request)}",
             req,
@@ -111,8 +111,8 @@ def get_user_ids_from_names(names: List[str]):
 
     # process the received user_ids and update the cache
     for x in req["data"]:
-        username = str(cast(Dict, x)["name"])
-        id = int(cast(Dict, x)["id"])
+        username = str(cast(Dict[str, str], x)["name"])
+        id = int(cast(Dict[str, str], x)["id"])
         ids[names.index(username.lower())] = id
         cache_user(username, id)
     save_cache()
@@ -161,8 +161,8 @@ def get_names_from_user_ids(ids: List[int]):
 
     # process the received usernames and update the cache
     for x in req["data"]:
-        id = int(cast(Any, x)["id"])
-        username = str(cast(Any, x)["name"])
+        id = int(cast(Dict[str, str], x)["id"])
+        username = str(cast(Dict[str, str], x)["name"])
         names[ids.index(id)] = username
         cache_user(username, id)
     save_cache()
