@@ -15,8 +15,8 @@ def natural_list(items: Sequence[Any]) -> str:
     For example: eggs, milk and butter
     """
     if len(items) == 1:
-        return items[0]
-    return f"{', '.join(items[:-1])} and {items[-1]}"
+        return str(items[0])
+    return f"{', '.join(map(str, items[:-1]))} and {items[-1]}"
 
 
 def pluralize(word: str, obj: Sized) -> str:
