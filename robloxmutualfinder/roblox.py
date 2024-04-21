@@ -65,7 +65,7 @@ def cache_user(username: str, user_id: Union[int, str]) -> None:
     Remember to call save_cache() after using this.
     """
 
-    user_id_to_username_cache[int(user_id)] = username
+    user_id_to_username_cache[str(user_id)] = username
 
 
 def get_user_ids_from_names(names: List[str]):
